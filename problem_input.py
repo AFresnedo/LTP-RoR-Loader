@@ -78,8 +78,6 @@ with i, o:
         o.write(line.strip()+' ')
     o.write('")'+ "\n")
 
-
-
     # Solution(s) tuple(s) and Hint(s) tuple(s)
     # TODO update to curriculum instead of outdated category
     typ = None
@@ -91,3 +89,60 @@ with i, o:
     assert ':bsol:' in line
     # process solution(s) and their hints
     processing_funcs.processChunk(i, o, typ)
+
+    # Metadata tuple, TODO update for curriculum->category->...
+    # note that category is already found because of processCHunk
+    # write beginning of metadata tuple for problem p
+    o.write('#METADATA TUPLE FOR PROBLEM P\n')
+    o.write('P.Metadata.create!(category: "')
+    # write category
+    for line in i:
+        # end of category reached
+        if line.strip() == ':ecat:':
+            break
+        # write until end of category
+        o.write(line.strip())
+    # next attribute
+    o.write('", context: "')
+    # goto context block
+    for line in i:
+        # found context
+        if line.strip() == ':bcontext:':
+            break
+    # for all context
+    for line in i:
+        # end of context block
+        if line.strip() == ':econtext:':
+            break
+        # write context block
+        o.write(line.strip())
+    # next attribute
+    o.write('", diff: ')
+    # goto difficulty block
+    for line in i:
+        # found difficulty
+        if line.strip() == ':bdif:':
+            break
+    # for all difficulty
+    for line in i:
+        # end of difficulty block
+        if line.strip() == ':edif:':
+            break
+        # write difficulty block
+        o.write(line.strip())
+    # next attribute
+    o.write(', source: "')
+    # goto source block
+    for line in i:
+        # found source
+        if line.strip() == ':bsource:':
+            break
+    # for all source
+    for line in i:
+        # end of source block
+        if line.strip() == ':esource:':
+            break
+        # write source block
+        o.write(line.strip())
+    # finish metadata tuple
+    o.write('")'+ "\n")
