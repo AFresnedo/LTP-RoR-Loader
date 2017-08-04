@@ -5,9 +5,30 @@ import re
 def processChunk(i, o):
     # process solution
     processSolution(i, o)
-    # TODO skip if no hints to a solution? is that valid?
     # process hint(s)
-    processHint(i, o)
+    # TODO skip if no hints to a solution? is that valid?
+    hintsRemain = True
+    hintFound = False
+    while hintsRemain:
+        if hintFound == False:
+            # find :bhint:
+            for line in i:
+                if line.strip() == ':bhint:':
+                    break
+            processHint(i, o)
+        else:
+            processHint(i,o)
+
+        # check if hints still remain
+        for line in i:
+            # more hints remain for this solution
+            if line.strip() == ':bhint:':
+                hintFound = True
+                break
+            # no hints remaining for this solution
+            if line.strip() == ':bcat:':
+                hintsRemain = False
+                break
 
 # pre: file iterator is on line with :bsol: WARNING: NO CHECK
 def processSolution(i, o):
@@ -36,11 +57,6 @@ def processSolution(i, o):
 
 # pre: file iterator is on line with :esol: (of relevant solution)
 def processHint(i, o):
-    # goto hint section
-    for line in i:
-        if line.strip() == ':bhint:':
-            break
-    assert ':bhint:' in line
     o.write('#HINT TUPLE FOR SOLUTION S\n')
     o.write('S.Hint.create!(text: "')
     for line in i:
