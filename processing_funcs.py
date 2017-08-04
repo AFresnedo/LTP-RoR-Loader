@@ -8,10 +8,10 @@ def processChunk(i, o, typ):
     # find first hint
     hintFound = False
     for line in i:
-        if line.strip() == ':bhint:':
+        if ':bhint:' in line:
             hintFound = True
             break
-    assert line.strip() == ':bhint:'
+    assert ':bhint:' in line
     # while hint(s) remaining for this solution
     while hintFound:
         # process hint
@@ -19,7 +19,7 @@ def processChunk(i, o, typ):
         # check if hints still remain
         for line in i:
             # if more hints remain for this solution, find next
-            if line.strip() == ':bhint:':
+            if ':bhint:' in line:
                 break
             # no hints remaining for this solution
             if ':bsol:' in line:
@@ -29,7 +29,7 @@ def processChunk(i, o, typ):
                 # finish hints/solutions
                 hintFound = False
                 break
-            if line.strip() == ':bcat:':
+            if ':bcat:' in line:
                 # end of hints/solutions in problem
                 hintFound = False
                 break
@@ -46,7 +46,7 @@ def processSolution(i, o, typ):
     # write solution text attribute
     for line in i:
         # break when end of sol's text found
-        if line.strip() == ':esol:':
+        if ':esol:' in line:
             break
         # write solution's text, TODO escape quotes
         o.write(line.strip()+' ')
@@ -58,7 +58,7 @@ def processHint(i, o):
     o.write('#HINT TUPLE FOR SOLUTION S\n')
     o.write('S.Hint.create!(text: "')
     for line in i:
-        if line.strip() == ':ehint:':
+        if ':ehint:' in line:
             break
         # placeholder for dealing with figures, if needed
         #  if '<img src' in line:

@@ -20,7 +20,7 @@ with i, o:
     # move through the file, searching for start of Problem statement
     for line in i:
         # stop moving when beginning of problem text found
-        if line.strip() == ':bprb:':
+        if ':bprb:' in line:
             break
     assert ':bprb:' in line
     # write Problem tuple
@@ -31,7 +31,7 @@ with i, o:
     # fill in text attribute
     for line in i:
         # break when end of problem statement reached
-        if line.strip() == ':eprb:':
+        if ':eprb:' in line:
             break
         # the following is a placeholder for dealing with figures, if needed
             #  if '<img src' in line:
@@ -46,7 +46,7 @@ with i, o:
     # TODO multiple modules, not yet implemented in MAM
     # Answer tuple
     for line in i:
-        if line.strip() == ':bans:':
+        if ':bans:' in line:
             break
     # write beginning of create command for P.Answer tuple
     o.write('#ANSWER TUPLE FOR PROBLEM P' + "\n")
@@ -54,7 +54,7 @@ with i, o:
     # write answer value(s)
     for line in i:
         # end of problem statement reached
-        if line.strip() == ':eans:':
+        if ':eans:' in line:
             break
         # skip extra <p> and </p> tags
         if 'p>' in line:
@@ -64,16 +64,16 @@ with i, o:
             numList = str([x for x in line.strip().split('|')])
             o.write(numList[1:len(numList)-1])
     # end writing answer value(s)
-    assert ':eans:' == line.strip()
+    assert ':eans:' in line
     o.write('", interface: "')
     # find interface text, TODO determine if html should be removed or not
     for line in i:
-        if line.strip() == ':bansinf:':
+        if ':bansinf:' in line:
             break
-    assert ':bansinf:' == line.strip()
+    assert ':bansinf:' in line
     # write interface
     for line in i:
-        if line.strip() == ':eansinf:':
+        if ':eansinf:' in line:
             break
         o.write(line.strip()+' ')
     o.write('")'+ "\n")
@@ -98,7 +98,7 @@ with i, o:
     # write category
     for line in i:
         # end of category reached
-        if line.strip() == ':ecat:':
+        if ':ecat:' in line:
             break
         # write until end of category
         o.write(line.strip())
@@ -107,12 +107,12 @@ with i, o:
     # goto context block
     for line in i:
         # found context
-        if line.strip() == ':bcontext:':
+        if ':bcontext:' in line:
             break
     # for all context
     for line in i:
         # end of context block
-        if line.strip() == ':econtext:':
+        if ':econtext:' in line:
             break
         # write context block
         o.write(line.strip())
@@ -121,12 +121,12 @@ with i, o:
     # goto difficulty block
     for line in i:
         # found difficulty
-        if line.strip() == ':bdif:':
+        if ':bdif:' in line:
             break
     # for all difficulty
     for line in i:
         # end of difficulty block
-        if line.strip() == ':edif:':
+        if ':edif:' in line:
             break
         # write difficulty block
         o.write(line.strip())
@@ -135,12 +135,12 @@ with i, o:
     # goto source block
     for line in i:
         # found source
-        if line.strip() == ':bsource:':
+        if ':bsource:' in line:
             break
     # for all source
     for line in i:
         # end of source block
-        if line.strip() == ':esource:':
+        if ':esource:' in line:
             break
         # write source block
         o.write(line.strip())
