@@ -2,47 +2,44 @@ import re
 # this module holds the functions to process multiple sections of a problem
 # file for Math Affirm
 
-def processChunk(i, o):
+def processChunk(i, o, typ):
     # process solution
-    processSolution(i, o)
-    # process hint(s)
-    # TODO skip if no hints to a solution? is that valid?
-    hintsRemain = True
+    processSolution(i, o, typ)
+    # find first hint
     hintFound = False
-    while hintsRemain:
-        if hintFound == False:
-            # find :bhint:
-            for line in i:
-                if line.strip() == ':bhint:':
-                    break
-            processHint(i, o)
-        else:
-            processHint(i,o)
-
+    for line in i:
+        if line.strip() == ':bhint:':
+            hintFound = True
+            break
+    # while hint(s) remaining for this solution
+    while hintFound:
+        # process hint
+        processHint(i, o)
         # check if hints still remain
         for line in i:
-            # more hints remain for this solution
+            # if more hints remain for this solution, find next
             if line.strip() == ':bhint:':
-                hintFound = True
                 break
             # no hints remaining for this solution
+            if ':bsol:' in line:
+                # solutions remain
+                typ = re.search(r'type=(.*):', line).group(1)
+                processChunk(i, o, typ)
+                # finish hints/solutions
+                hintFound = False
+                break
             if line.strip() == ':bcat:':
-                hintsRemain = False
+                # end of hints/solutions in problem
+                hintFound = False
                 break
 
 # pre: file iterator is on line with :bsol: WARNING: NO CHECK
-def processSolution(i, o):
-    # find beginning of solution section
-    for line in i:
-        if ':bsol:' in line:
-            break
-    assert ':bsol:' in line
+def processSolution(i, o, typ):
     # write seperation comment for seed file organization
     o.write('#SOLUTION TUPLE FOR PROBLEM P\n')
     # write start of solution tuple for problem P (defined in problem_input)
     o.write('S = P.Solution.create!(typ: "')
     # use regex to extract type from input file
-    typ = re.search(r'type=(.*):', line).group(1)
     # write solution type attribute
     o.write(typ + '", text: "')
     # write solution text attribute

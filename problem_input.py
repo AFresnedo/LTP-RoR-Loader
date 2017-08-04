@@ -1,4 +1,5 @@
 import processing_funcs
+import re
 import sys, os
 bash_input = sys.argv[1]
 
@@ -44,7 +45,11 @@ with i, o:
 
     # process solution/hint chunks until metadata section is reached
     # TODO update to curriculum instead of outdated category
-    loop = True
-    while loop:
-        processing_funcs.processChunk(i, o)
-        loop = False
+    # go to first solution
+    typ = None
+    for line in i:
+        if ':bsol:' in line:
+            typ = re.search(r'type=(.*):', line).group(1)
+            break
+    # process solution and its hints
+    processing_funcs.processChunk(i, o, typ)
