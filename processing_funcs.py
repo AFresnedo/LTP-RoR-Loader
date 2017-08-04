@@ -11,6 +11,7 @@ def processChunk(i, o, typ):
         if line.strip() == ':bhint:':
             hintFound = True
             break
+    assert line.strip() == ':bhint:'
     # while hint(s) remaining for this solution
     while hintFound:
         # process hint
@@ -47,7 +48,7 @@ def processSolution(i, o, typ):
         # break when end of sol's text found
         if line.strip() == ':esol:':
             break
-        # write solution's text
+        # write solution's text, TODO escape quotes
         o.write(line.strip()+' ')
     # finish writing text attribute
     o.write('")'+ "\n")
@@ -61,5 +62,6 @@ def processHint(i, o):
             break
         # placeholder for dealing with figures, if needed
         #  if '<img src' in line:
+        # TODO escape quotes
         o.write(line.strip()+' ')
     o.write('")'+ "\n")
