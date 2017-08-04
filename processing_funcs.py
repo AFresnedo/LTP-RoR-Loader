@@ -39,7 +39,7 @@ def processSolution(i, o, typ):
     # write seperation comment for seed file organization
     o.write('#SOLUTION TUPLE FOR PROBLEM P\n')
     # write start of solution tuple for problem P (defined in problem_input)
-    o.write('S = P.Solution.create!(typ: "')
+    o.write('s = p.solutions.create!(typ: "')
     # use regex to extract type from input file
     # write solution type attribute
     o.write(typ + '", text: "')
@@ -56,7 +56,7 @@ def processSolution(i, o, typ):
 # pre: file iterator is on line with :esol: (of relevant solution)
 def processHint(i, o):
     o.write('#HINT TUPLE FOR SOLUTION S\n')
-    o.write('S.Hint.create!(text: "')
+    o.write('s.hints.create!(text: "')
     for line in i:
         if ':ehint:' in line:
             break

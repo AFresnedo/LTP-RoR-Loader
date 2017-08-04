@@ -5,11 +5,11 @@ bash_input = sys.argv[1]
 
 # TODO fix syntax if needed, what is pluralized? Comment or Comments? does it
 # depend on the association type?
-# P = Problem.create!(filename: , text: )
-# P.Answer(values: , module: )
-# S = P.Solution.create!(typ: , text: )
-# S.Hint.create!(text: )
-# P.Metadata(curriculum: , category: , context: , diff: , src: )
+# p = Problem.create!(filename: , text: )
+# p.answer(values: , module: )
+# s = p.solutions.create!(typ: , text: )
+# s.hints.create!(text: )
+# p.metadata(curriculum: , category: , context: , diff: , src: )
 
 # create new, or overrite, file to write seed code into
 o = open('seed_' + bash_input, 'w')
@@ -48,9 +48,9 @@ with i, o:
     for line in i:
         if ':bans:' in line:
             break
-    # write beginning of create command for P.Answer tuple
+    # write beginning of create command for p.Answer tuple
     o.write('#ANSWER TUPLE FOR PROBLEM P' + "\n")
-    o.write('P.Answer.create!(values: "')
+    o.write('p.answer.create!(values: "')
     # write answer value(s)
     for line in i:
         # end of problem statement reached
@@ -94,7 +94,7 @@ with i, o:
     # note that category is already found because of processCHunk
     # write beginning of metadata tuple for problem p
     o.write('#METADATA TUPLE FOR PROBLEM P\n')
-    o.write('P.Metadata.create!(category: "')
+    o.write('p.metadata.create!(category: "')
     # write category
     for line in i:
         # end of category reached
