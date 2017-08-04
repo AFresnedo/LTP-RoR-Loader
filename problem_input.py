@@ -45,11 +45,11 @@ with i, o:
 
     # process solution/hint chunks until metadata section is reached
     # TODO update to curriculum instead of outdated category
-    # go to first solution
     typ = None
+    # go to first solution
     for line in i:
         if ':bsol:' in line:
             typ = re.search(r'type=(.*):', line).group(1)
             break
-    # process solution and its hints
+    # process solution(s) and their hints
     processing_funcs.processChunk(i, o, typ)

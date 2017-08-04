@@ -22,7 +22,7 @@ def processChunk(i, o, typ):
                 break
             # no hints remaining for this solution
             if ':bsol:' in line:
-                # solutions remain
+                # other solutions remain, recursive call
                 typ = re.search(r'type=(.*):', line).group(1)
                 processChunk(i, o, typ)
                 # finish hints/solutions
