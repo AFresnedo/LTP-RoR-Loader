@@ -20,6 +20,7 @@ with i, o:
         # stop moving when beginning of problem text found
         if line.strip() == ':bprb:':
             break
+    assert ':bprb:' in line
     # write Problem tuple
     # add comment seperation for seed file organization
     o.write('#PROBLEM TUPLE' + "\n")
@@ -35,16 +36,15 @@ with i, o:
             #    do something
         # write text into text attribute
         o.write(line.strip()+' ')
+    assert ':eprb:' in line
     # finish writing text attribute for Problem
     o.write('")'+ "\n")
 
     # TODO Problem.Answer tuple
 
-    # move through file until first solution begins
-    for line in i:
-        if ':bsol:' in line:
-            break
     # process solution/hint chunks until metadata section is reached
     # TODO update to curriculum instead of outdated category
-    while ':bcat:' not in line.strip():
+    loop = True
+    while loop:
         processing_funcs.processChunk(i, o)
+        loop = False
