@@ -1,6 +1,5 @@
 import processing_funcs
 import sys, os
-import re
 bash_input = sys.argv[1]
 
 # TODO fix syntax if needed, what is pluralized? Comment or Comments? does it
@@ -19,7 +18,7 @@ with i, o:
     # move through the file
     for line in i:
         # stop moving when beginning of problem text found
-        if line.strip() == ':bprb':
+        if line.strip() == ':bprb:':
             break
     # write Problem tuple
     # add comment seperation for seed file organization
@@ -43,7 +42,9 @@ with i, o:
 
     # move through file until first solution begins
     for line in i:
-        if line.strip() == ':bsol':
+        if ':bsol:' in line:
             break
-    # write Problem.Solution tuple(s) and Problem.Solution.Hint tuple(s)
-    # call processSolution('here')
+    # process solution/hint chunks until metadata section is reached
+    # TODO update to curriculum instead of outdated category
+    while ':bcat:' not in line.strip():
+        processing_funcs.processChunk(i, o)
