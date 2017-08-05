@@ -15,5 +15,5 @@
 ls ./**/**/*.html | perl -nle 'print if /(?<!theory)[0-9]+.html/' | python ~/Documents/persProj/ma_loader/problem_input.py
 
 # step 2: grab all the _seed files and concatenate them into a large seed file
-rm ../../math_affirm/db/curriculum_seed.rb
-find . -name '*.html_seed' -exec cat {} >> ../../math_affirm/db/curriculum_seed.rb \;
+rm ../../math_affirm/db/seeds/curriculum_seed.rb
+find . -name '*.html_seed' -exec cat {} >> ../../math_affirm/db/seeds/curriculum_seed.rb \;
