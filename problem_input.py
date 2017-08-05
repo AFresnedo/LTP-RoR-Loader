@@ -1,3 +1,4 @@
+import json
 import processing_funcs
 import re
 import sys, os
@@ -32,21 +33,23 @@ for filename in sys.stdin:
         # add comment seperation for seed file organization
         o.write('#PROBLEM TUPLE FOR '+filename+"\n")
         # write beginning of create command for the tuple going to Problem
-        o.write('Problem.create!(filename: "'+filename+'",'+' text: "')
+        o.write('Problem.create!(filename: "'+filename+'",'+' text: ')
         # fill in text attribute
+        text = ''
         for line in i:
             # break when end of problem statement reached
             if ':eprb:' in line:
+                # write string with escaped quotes, etc
+                o.write(json.dumps(text))
                 break
             # the following is a placeholder for dealing with figures, if needed
                 #  if '<img src' in line:
                 #    do something
-            # write text into text attribute
-            # TODO escape quotes
-            o.write(line.strip()+' ')
+            # append line to string
+            text += line
         assert ':eprb:' in line
         # finish writing text attribute for Problem
-        o.write('")'+ "\n")
+        o.write(')\n')
 
         # TODO multiple modules, not yet implemented in MAM
         # Answer tuple
@@ -80,8 +83,8 @@ for filename in sys.stdin:
         for line in i:
             if ':eansinf:' in line:
                 break
-            o.write(line.strip()+' ')
-        o.write('")'+ "\n")
+            o.write(line.strip() + ' ')
+        o.write('")\n')
 
         # Solution(s) tuple(s) and Hint(s) tuple(s)
         # TODO update to curriculum instead of outdated category
@@ -153,4 +156,4 @@ for filename in sys.stdin:
             # write source block
             o.write(line.strip())
         # finish metadata tuple
-        o.write('")'+ "\n")
+        o.write('")\n')

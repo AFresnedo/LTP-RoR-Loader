@@ -1,3 +1,4 @@
+import json
 import re
 # this module holds the functions to process multiple sections of a problem
 # file for Math Affirm
@@ -45,26 +46,31 @@ def processSolution(i, o, typ):
     o.write('s = p.solutions.create!(typ: "')
     # use regex to extract type from input file
     # write solution type attribute
-    o.write(typ + '", text: "')
+    o.write(typ+'"'', text: ')
     # write solution text attribute
+    text = ''
     for line in i:
         # break when end of sol's text found
         if ':esol:' in line:
+            # write string with escaped quotes
+            o.write(json.dumps(text))
             break
-        # write solution's text, TODO escape quotes
-        o.write(line.strip()+' ')
+        # append line to string
+        text += line
     # finish writing text attribute
-    o.write('")'+ "\n")
+    o.write(')\n')
 
 # pre: file iterator is on line with :esol: (of relevant solution)
 def processHint(i, o):
     o.write('#HINT TUPLE FOR SOLUTION S\n')
-    o.write('s.hints.create!(text: "')
+    o.write('s.hints.create!(text: ')
+    text = ''
     for line in i:
         if ':ehint:' in line:
+            o.write(json.dumps(text))
             break
         # placeholder for dealing with figures, if needed
         #  if '<img src' in line:
         # TODO escape quotes
-        o.write(line.strip()+' ')
-    o.write('")'+ "\n")
+        text += line
+    o.write(')\n')
