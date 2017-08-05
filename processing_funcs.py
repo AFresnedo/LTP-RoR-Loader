@@ -24,7 +24,10 @@ def processChunk(i, o, typ):
             # no hints remaining for this solution
             if ':bsol:' in line:
                 # other solutions remain, recursive call
-                typ = re.search(r'type=(.*):', line).group(1)
+                try:
+                    typ = re.search(r'type=(.*):', line).group(1)
+                except AttributeError:
+                    typ = 'unknown'
                 processChunk(i, o, typ)
                 # finish hints/solutions
                 hintFound = False
