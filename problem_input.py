@@ -33,7 +33,7 @@ for filename in sys.stdin:
         # add comment seperation for seed file organization
         o.write('#PROBLEM TUPLE FOR '+filename+"\n")
         # write beginning of create command for the tuple going to Problem
-        o.write('Problem.create!(filename: "'+filename+'",'+' text: ')
+        o.write('p = Problem.create!(filename: "'+filename+'",'+' text: ')
         # fill in text attribute
         text = ''
         for line in i:
@@ -58,7 +58,8 @@ for filename in sys.stdin:
                 break
         # write beginning of create command for p.Answer tuple
         o.write('#ANSWER TUPLE FOR PROBLEM P' + "\n")
-        o.write('p.answer.create!(values: "')
+        # get problem tuple from database (doesn't seem to work otherwise)
+        o.write('p.answer = Answer.new(values: "')
         # write answer value(s)
         for line in i:
             # end of problem statement reached
@@ -105,7 +106,7 @@ for filename in sys.stdin:
         # note that category is already found because of processCHunk
         # write beginning of metadata tuple for problem p
         o.write('#METADATA TUPLE FOR PROBLEM P\n')
-        o.write('p.metadata.create!(category: "')
+        o.write('p.metadata = Metadata.new(category: "')
         # write category
         for line in i:
             # end of category reached
