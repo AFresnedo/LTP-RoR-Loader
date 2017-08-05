@@ -17,9 +17,9 @@ for filename in sys.stdin:
     o = open(filename + '_seed', 'w')
     # open source file
     i = open(filename)
-    # TODO re-write filename here to remove dirs before curriculum
-    match = re.search('.*/(.+?).html', filename)
-    filename = match.group(1)
+    # NOTE: uncomment following lines if only relative names desired
+    #  match = re.search('.*/(.+?).html', filename)
+    #  filename = match.group(1)
     with i, o:
         # Problem tuple
         # move through the file, searching for start of Problem statement
