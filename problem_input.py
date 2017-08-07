@@ -1,7 +1,7 @@
 import json
 import processing_funcs
 import re
-import sys, os
+import sys
 
 # TODO fix syntax if needed, what is pluralized? Comment or Comments? does it
 # depend on the association type?
