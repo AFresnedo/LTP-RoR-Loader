@@ -3,6 +3,7 @@ import re
 
 for filename in sys.stdin:
     filename = filename.strip()
+    print 'Processing file: '+filename
     # get directory path and filename
     match = re.search('(.*/).+.txt', filename)
     # save directory path for referencing problems

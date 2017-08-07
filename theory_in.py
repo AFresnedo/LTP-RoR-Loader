@@ -5,7 +5,7 @@ import sys
 for filename in sys.stdin:
     filename = filename.strip()
     print "Processing file: "+filename
-    o = open(filename + '_seed', 'w')
+    o = open(filename + '_theory_seed', 'w')
     i = open(filename)
     with i, o:
         for line in i:
