@@ -41,7 +41,10 @@ for filename in sys.stdin:
                         +', file_id: p.id)\n')
             # must be theory file line
             else:
+                # find theory_id
+                o.write('t = Theory.find_by(filename: \''+dirPath+line+'\')\n')
+                # write theory tuple
                 batch = str(batch_number)
                 o.write('Graph.create!(typ: \'theory\', context: \''
-                        +dirPath+'\', batch: '+batch+', file_id: 0, '
+                        +dirPath+'\', batch: '+batch+', file_id: t.id, '
                         +'makeup: false)\n')

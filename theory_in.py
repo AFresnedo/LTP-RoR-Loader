@@ -15,7 +15,7 @@ for filename in sys.stdin:
         # write Theory tuple
         # add comment seperation for seed file organization
         o.write('#THEORY TUPLE' + "\n")
-        o.write('Theory.create!(filename: "'+filename+'", text: "')
+        o.write('Theory.create!(filename: "'+filename+'", text: ')
         # fill in text attribute
         text = ''
         for line in i:
@@ -30,4 +30,4 @@ for filename in sys.stdin:
                 #  # do something
             text += line
         assert ':etheo:' in line
-        o.write('")'+ "\n")
+        o.write(')'+ "\n")
