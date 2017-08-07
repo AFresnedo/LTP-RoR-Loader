@@ -19,7 +19,7 @@ for filename in sys.stdin:
         for line in i:
             # remove formatting characters
             line = line.strip()
-            makeup_flag = False
+            makeup_flag = 'false'
             # if it is a whitespace-only line, begin new batch
             if line == '':
                 batch_number += 1
@@ -27,16 +27,20 @@ for filename in sys.stdin:
             elif re.match('.*theory.*\.html', line) is None:
                 # check if makeup, remove makeup flag
                 if line[:1] == '+':
-                    makeup_flag = True
+                    makeup_flag = 'true'
                     line = line[1:]
                 # find problem_id
-                o.write('p = Problem.find_by(filename: '+dirPath+line+')\n')
+                o.write('p = Problem.find_by(filename: \''+dirPath+line+'\')\n')
                 # write graph tuple
                 # (filename, context, batch_number, makeup, foreign_key_problem_id)
                 batch = str(batch_number)
                 makeup = str(makeup_flag)
-                o.write('Graph.create!(typ: \'prob\', context: '+dirPath+', batch: '+batch+', makeup: '+makeup+', file_id: p.id)\n')
+                o.write('Graph.create!(typ: \'prob\', context: \''+dirPath
+                        +'\', batch: '+batch+', makeup: '+makeup
+                        +', file_id: p.id)\n')
             # must be theory file line
             else:
                 batch = str(batch_number)
-                o.write('Graph.create!(typ: \'theory\', context: '+dirPath+', batch: '+batch+', file_id: filler)\n')
+                o.write('Graph.create!(typ: \'theory\', context: \''
+                        +dirPath+'\', batch: '+batch+', file_id: 0, '
+                        +'makeup: false)\n')
