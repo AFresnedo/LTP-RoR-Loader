@@ -8,6 +8,9 @@ for filename in sys.stdin:
     match = re.search('(.*/).+.txt', filename)
     # save directory path for referencing problems
     dirPath = match.group(1)
+    dirPieces = dirPath.split('/')
+    category = str.lower(dirPieces[1])
+    context = str.lower(dirPieces[2])
         # create seed_file for file
     o = open(filename + '_seed', 'w')
     # open source file
@@ -31,20 +34,20 @@ for filename in sys.stdin:
                     makeup_flag = 'true'
                     line = line[1:]
                 # find problem_id
-                o.write('p = Problem.find_by(filename: \''+dirPath+line+'\')\n')
+                o.write('p = Problem.find_by!(filename: \''+dirPath+line+'\')\n')
                 # write graph tuple
                 # (filename, context, batch_number, makeup, foreign_key_problem_id)
                 batch = str(batch_number)
                 makeup = str(makeup_flag)
-                o.write('Graph.create!(typ: \'prob\', context: \''+dirPath
+                o.write('Graph.create!(typ: \'prob\', context: \''+context
                         +'\', batch: '+batch+', makeup: '+makeup
-                        +', file_id: p.id)\n')
+                        +', category: \''+category+'\', file_id: p.id)\n')
             # must be theory file line
             else:
                 # find theory_id
-                o.write('t = Theory.find_by(filename: \''+dirPath+line+'\')\n')
+                o.write('t = Theory.find_by!(filename: \''+dirPath+line+'\')\n')
                 # write theory tuple
                 batch = str(batch_number)
                 o.write('Graph.create!(typ: \'theory\', context: \''
-                        +dirPath+'\', batch: '+batch+', file_id: t.id, '
-                        +'makeup: false)\n')
+                        +context+'\', batch: '+batch+', file_id: t.id, '
+                        +'makeup: false, category: \''+category+'\')\n')

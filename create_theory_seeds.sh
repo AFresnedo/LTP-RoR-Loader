@@ -11,8 +11,11 @@
 # second part has perl print a list of all the files that have "theory"
 # in them and that gets piped as output into python's stdin
 
-# third part: see python scripts for math-affirm-loader
+# these are the theory files controlled by the local graphs
 ls ./**/**/*.html | perl -nle 'print if /(?<=theory).*\.html/' | python ~/Documents/persProj/ma_loader/theory_in.py
+
+# these are the theory files controlled by the globalgraph
+ls ./**/*.html | perl -nle 'print if /(?<=theory).*\.html/' | python ~/Documents/persProj/ma_loader/theory_in.py
 
 # step 2: grab all the _seed files and concatenate them into a large seed file
 rm ../../math_affirm/db/seeds/theory_seed.rb
