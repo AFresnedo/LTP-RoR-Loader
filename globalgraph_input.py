@@ -30,7 +30,7 @@ with i, o:
             # write tuple for theory file
             o.write('Globalgraph.create!(curriculum: \''+curriculum
                     +'\', category: \''+category
-                    +'\', context: \'theoryfile'
+                    +'\', context: \'category_introduction'
                     +'\', category_order: '+str(category_order)
                     +', context_order: '+str(context_order)+')\n')
         # else line is a directory
