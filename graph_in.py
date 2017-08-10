@@ -1,10 +1,12 @@
 import sys
 import re
 
+# filename is a graph.txt file
 for filename in sys.stdin:
     filename = filename.strip()
     print 'Processing file: '+filename
     # get directory path and filename
+    # TODO tighten regex
     match = re.search('(.*/).+.txt', filename)
     # save directory path for referencing problems
     dirPath = match.group(1)
