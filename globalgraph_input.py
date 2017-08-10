@@ -12,6 +12,7 @@ i = open(filename)
 with i, o:
     # get curriculum attribute, same for every line
     curriculum = sys.argv[2]
+    curriculum = str.lower(curriculum)
     # variables for determining order
     category_order = 0
     context_order = 0
@@ -27,17 +28,17 @@ with i, o:
             # reset context order, it's a new category
             context_order = 0
             # write tuple for theory file
-            o.write('Globalgraph.create!(curriculum: '+curriculum
-                    +', category: '+category
-                    +', context: theoryfile'
-                    +', category_order: '+str(category_order)
+            o.write('Globalgraph.create!(curriculum: \''+curriculum
+                    +'\', category: \''+category
+                    +'\', context: \'theoryfile'
+                    +'\', category_order: '+str(category_order)
                     +', context_order: '+str(context_order)+')\n')
         # else line is a directory
         else:
             # increase context order, still in the same category
             context_order += 1
-            o.write('Globalgraph.create!(curriculum: '+curriculum
-                    +', category: '+category
-                    +', context: '+context
-                    +', category_order: '+str(category_order)
+            o.write('Globalgraph.create!(curriculum: \''+curriculum
+                    +'\', category: \''+category
+                    +'\', context: \''+context
+                    +'\', category_order: '+str(category_order)
                     +', context_order: '+str(context_order)+')\n')
