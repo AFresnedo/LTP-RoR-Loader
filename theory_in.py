@@ -7,7 +7,7 @@ for filename in sys.stdin:
     filename = filename.strip()
     print "Processing file: "+filename
     # get directory path and filename
-    match = re.search('(.*)\/.*\.html', filename)
+    match = re.search('(.*)\/(.*\.html)', filename)
     # save directory path for referencing problems
     dirPath = match.group(1)
     dirPieces = dirPath.split('/')
@@ -18,6 +18,7 @@ for filename in sys.stdin:
         context = 'category_introduction'
     else:
         assert False
+    localName = match.group(2)
     o = open(filename + '_theory_seed', 'w')
     i = open(filename)
     with i, o:
@@ -28,12 +29,12 @@ for filename in sys.stdin:
         assert ':btheo:' in line
         # write Theory tuple
         # add comment seperation for seed file organization
-        o.write('#THEORY TUPLE' + "\n")
+        o.write('#THEORY TUPLE FOR' +filename+ "\n")
         # TODO replace filename with local filename
         o.write('Theory.create!(category: \''
                 +category+'\', context: \''
                 +context+'\', filename: \''
-                +filename+'\', text: ')
+                +localName+'\', text: ')
         # fill in text attribute
         text = ''
         for line in i:

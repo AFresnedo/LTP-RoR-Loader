@@ -11,16 +11,25 @@ import sys
 # s.hints.create!(text: )
 # p.metadata(curriculum: , category: , context: , diff: , src: )
 
+# filename is problem.html file
 for filename in sys.stdin:
     filename = filename.strip()
     print "Processing file: "+filename
+    # get directory path and filename
+    match = re.search('(.*)\/(.*\.html)', filename)
+    # save directory path for referencing problems
+    dirPath = match.group(1)
+    dirPieces = dirPath.split('/')
+    # get category
+    category = str.lower(dirPieces[1])
+    # get context
+    context = str.lower(dirPieces[2])
+    # get in-directory filename
+    localName = match.group(2)
     # create new, or overrite, file to write seed code into
     o = open(filename + '_seed', 'w')
     # open source file
     i = open(filename)
-    # NOTE: uncomment following lines if only relative names desired
-    #  match = re.search('.*/(.+?).html', filename)
-    #  filename = match.group(1)
     with i, o:
         # Problem tuple
         # move through the file, searching for start of Problem statement
@@ -33,7 +42,10 @@ for filename in sys.stdin:
         # add comment seperation for seed file organization
         o.write('#PROBLEM TUPLE FOR '+filename+"\n")
         # write beginning of create command for the tuple going to Problem
-        o.write('p = Problem.create!(filename: "'+filename+'",'+' text: ')
+        o.write('p = Problem.create!(filename: \''+localName
+                +'\', category: \''+category
+                +'\', context: \''+context
+                +'\', text: ')
         # fill in text attribute
         text = ''
         for line in i:

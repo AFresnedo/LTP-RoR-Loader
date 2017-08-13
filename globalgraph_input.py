@@ -14,7 +14,7 @@ with i, o:
     curriculum = sys.argv[2]
     curriculum = str.lower(curriculum)
     # variables for determining order
-    category_order = 0
+    category_order = -1
     context_order = 0
     for line in i:
         # get attributes for tuple

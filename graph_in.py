@@ -36,7 +36,9 @@ for filename in sys.stdin:
                     makeup_flag = 'true'
                     line = line[1:]
                 # find problem_id
-                o.write('p = Problem.find_by!(filename: \''+dirPath+line+'\')\n')
+                o.write('p = Problem.find_by!(category: \''+category
+                        +'\', context: \''+context
+                        +'\', filename: \''+line+'\')\n')
                 # write graph tuple
                 # (filename, context, batch_number, makeup, foreign_key_problem_id)
                 batch = str(batch_number)
