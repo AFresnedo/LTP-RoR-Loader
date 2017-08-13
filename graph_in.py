@@ -59,7 +59,9 @@ for filename in sys.stdin:
                 # increase order
                 order += 1
                 # find theory_id
-                o.write('t = Theory.find_by!(filename: \''+dirPath+line+'\')\n')
+                o.write('t = Theory.find_by!(category: \''+category
+                        +'\', context: \''+context
+                        +'\', filename: \''+line+'\')\n')
                 # write theory tuple
                 batch = str(batch_number)
                 o.write('Graph.create!(typ: \'theory\', context: \''
