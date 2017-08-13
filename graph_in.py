@@ -22,6 +22,7 @@ for filename in sys.stdin:
         o.write('#GRAPH TUPLES FROM '+filename+"\n")
         # write graph tuple(s)
         batch_number = 0
+        order = -1
         for line in i:
             # remove formatting characters
             line = line.strip()
@@ -29,8 +30,13 @@ for filename in sys.stdin:
             # if it is a whitespace-only line, begin new batch
             if line == '':
                 batch_number += 1
+                # TODO opportunity to save max order of previous batch?
+                # reset order
+                order = -1
             # if it is a problem file line
             elif re.match('.*theory.*\.html', line) is None:
+                # increase order
+                order += 1
                 # check if makeup, remove makeup flag
                 if line[:1] == '+':
                     makeup_flag = 'true'
@@ -45,13 +51,19 @@ for filename in sys.stdin:
                 makeup = str(makeup_flag)
                 o.write('Graph.create!(typ: \'prob\', context: \''+context
                         +'\', batch: '+batch+', makeup: '+makeup
-                        +', category: \''+category+'\', file_id: p.id)\n')
+                        +', category: \''+category
+                        +'\', order: '+str(order)
+                        +', file_id: p.id)\n')
             # must be theory file line
             else:
+                # increase order
+                order += 1
                 # find theory_id
                 o.write('t = Theory.find_by!(filename: \''+dirPath+line+'\')\n')
                 # write theory tuple
                 batch = str(batch_number)
                 o.write('Graph.create!(typ: \'theory\', context: \''
                         +context+'\', batch: '+batch+', file_id: t.id, '
-                        +'makeup: false, category: \''+category+'\')\n')
+                        +'makeup: false'
+                        +', order: '+str(order)
+                        +', category: \''+category+'\')\n')
