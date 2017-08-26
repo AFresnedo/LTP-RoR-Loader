@@ -82,12 +82,11 @@ for filename in sys.stdin:
                 None
             # write values as a string
             else:
-                numList = str([x for x in line.strip().split('|')])
-                o.write(numList[1:len(numList)-1])
+                o.write(line.strip())
         # end writing answer value(s)
         assert ':eans:' in line
         o.write('", interface: "')
-        # find interface text, TODO determine if html should be removed or not
+        # find interface text
         for line in i:
             if ':bansinf:' in line:
                 break
@@ -96,7 +95,8 @@ for filename in sys.stdin:
         for line in i:
             if ':eansinf:' in line:
                 break
-            o.write(line.strip() + ' ')
+            if 'p>' not in line:
+                o.write(line.strip() + ' ')
         o.write('")\n')
 
         # Solution(s) tuple(s) and Hint(s) tuple(s)

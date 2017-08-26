@@ -23,18 +23,22 @@ for filename in sys.stdin:
         # write graph tuple(s)
         batch_number = 0
         order = -1
+        lastLineNotEmpty = False
         for line in i:
             # remove formatting characters
             line = line.strip()
             makeup_flag = 'false'
-            # if it is a whitespace-only line, begin new batch
+            # if it is a whitespace-only line
             if line == '':
-                batch_number += 1
-                # TODO opportunity to save max order of previous batch?
-                # reset order
-                order = -1
+                # if last line wasn't whitespace-only, create a new batch
+                if lastLineNotEmpty:
+                    batch_number += 1
+                    # TODO opportunity to save max order of previous batch?
+                    # reset order
+                    order = -1
             # if it is a problem file line
             elif re.match('.*theory.*\.html', line) is None:
+                lastLineNotEmpty = True
                 # increase order
                 order += 1
                 # check if makeup, remove makeup flag
@@ -56,6 +60,7 @@ for filename in sys.stdin:
                         +', file_id: p.id)\n')
             # must be theory file line
             else:
+                lastLineNotEmpty = True
                 # increase order
                 order += 1
                 # find theory_id
