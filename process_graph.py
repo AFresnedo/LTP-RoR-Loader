@@ -36,6 +36,7 @@ for filename in sys.stdin:
                     # TODO opportunity to save max order of previous batch?
                     # reset order
                     order = -1
+                lastLineNotEmpty = False
             # if it is a problem file line
             elif re.match('.*theory.*\.html', line) is None:
                 lastLineNotEmpty = True
