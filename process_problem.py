@@ -1,5 +1,5 @@
 import json
-import processing_funcs
+import helper_process_problem
 import re
 import sys
 
@@ -11,19 +11,23 @@ import sys
 # s.hints.create!(text: )
 # p.metadata(curriculum: , category: , context: , diff: , src: )
 
+# ~, home, lancaster, Documents, persProj, ma_files
+fillerPathLength = 6
 # filename is problem.html file
 for filename in sys.stdin:
     filename = filename.strip()
-    print "Processing file: "+filename
+    print "Processing problem file: "+filename
     # get directory path and filename
     match = re.search('(.*)\/(.*\.html)', filename)
     # save directory path for referencing problems
     dirPath = match.group(1)
     dirPieces = dirPath.split('/')
+    # get curriculum
+    curriculum = str.lower(dirPieces[fillerPathLength])
     # get category
-    category = str.lower(dirPieces[1])
+    category = str.lower(dirPieces[fillerPathLength+1])
     # get context
-    context = str.lower(dirPieces[2])
+    context = str.lower(dirPieces[fillerPathLength+2])
     # get in-directory filename
     localName = match.group(2)
     # create new, or overrite, file to write seed code into
@@ -43,6 +47,7 @@ for filename in sys.stdin:
         o.write('#PROBLEM TUPLE FOR '+filename+"\n")
         # write beginning of create command for the tuple going to Problem
         o.write('p = Problem.create!(filename: \''+localName
+                +'\', curriculum: \''+curriculum
                 +'\', category: \''+category
                 +'\', context: \''+context
                 +'\', text: ')
@@ -112,22 +117,24 @@ for filename in sys.stdin:
                 break
         assert ':bsol:' in line
         # process solution(s) and their hints
-        processing_funcs.processChunk(i, o, typ)
+        helper_process_problem.processChunk(i, o, typ)
 
         # Metadata tuple, TODO update for curriculum->category->...
         # note that category is already found because of processCHunk
         # write beginning of metadata tuple for problem p
         o.write('#METADATA TUPLE FOR PROBLEM P\n')
-        o.write('p.metadata = Metadata.new(category: "')
-        # write category
+        o.write('p.metadata = Metadata.new(curriculum: "')
+        # write curriculum NOTE mislabeled, in input, as cat
         for line in i:
-            # end of category reached
+            # end of curriculum reached
             if ':ecat:' in line:
                 break
-            # write until end of category
+            # write until end of curriculum
             o.write(line.strip())
+        # write in category manually, not in input
+        o.write('", context: "'+context)
         # next attribute
-        o.write('", context: "')
+        o.write('", category: "')
         # goto context block
         for line in i:
             # found context

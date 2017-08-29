@@ -1,18 +1,21 @@
 import sys
 import re
 
+# ~, home, lancaster, Documents, persProj, ma_files
+fillerPathLength = 6
 # filename is a graph.txt file
 for filename in sys.stdin:
     filename = filename.strip()
-    print 'Processing file: '+filename
+    print 'Processing graph file: '+filename
     # get directory path and filename
     # TODO tighten regex
     match = re.search('(.*/).+.txt', filename)
     # save directory path for referencing problems
     dirPath = match.group(1)
     dirPieces = dirPath.split('/')
-    category = str.lower(dirPieces[1])
-    context = str.lower(dirPieces[2])
+    curriculum = str.lower(dirPieces[fillerPathLength])
+    category = str.lower(dirPieces[fillerPathLength+1])
+    context = str.lower(dirPieces[fillerPathLength+2])
         # create seed_file for file
     o = open(filename + '_seed', 'w')
     # open source file

@@ -12,11 +12,13 @@
 # in them and that gets piped as output into python's stdin
 
 # these are the theory files controlled by the local graphs
-ls ./**/**/*.html | perl -nle 'print if /(?<=theory).*\.html/' | python ~/Documents/persProj/ma_loader/theory_in.py
+ls $files/**/**/*.html | perl -nle 'print if /(?<=theory).*\.html/' | python $loader/process_theory.py
 
 # these are the theory files controlled by the globalgraph
-ls ./**/*.html | perl -nle 'print if /(?<=theory).*\.html/' | python ~/Documents/persProj/ma_loader/theory_in.py
+ls $files/**/*.html | perl -nle 'print if /(?<=theory).*\.html/' | python $loader/process_theory.py
 
 # step 2: grab all the _seed files and concatenate them into a large seed file
-rm ../../math_affirm/db/seeds/theory_seed.rb
-find . -name '*.html_theory_seed' -exec cat {} >> ../../math_affirm/db/seeds/theory_seed.rb \;
+rm $seeds/theory_seed.rb
+find $files -name '*.html_theory_seed' -exec cat {} >> $seeds/theory_seed.rb \;
+# also add to gigantic seed file
+find $files -name '*.html_theory_seed' -exec cat {} >> $seeds/all.rb \;
