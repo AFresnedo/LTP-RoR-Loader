@@ -132,9 +132,9 @@ for filename in sys.stdin:
             # write until end of curriculum
             o.write(line.strip())
         # write in category manually, not in input
-        o.write('", context: "'+context)
+        o.write('", category: "'+category)
         # next attribute
-        o.write('", category: "')
+        o.write('", context: "')
         # goto context block
         for line in i:
             # found context
