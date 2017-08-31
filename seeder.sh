@@ -21,6 +21,9 @@ cp -r ~/Dropbox/MathAffirm/Problems/LIFETOMATH/* $files
 rm $seeds/all.rb
 find ~/Documents/persProj/math_affirm/db -name 'seeds.rb' -exec cat {} >> $seeds/all.rb \;
 
+# fix figure HREFs
+find $files -name *.html | xargs sed -i 's/img src="FIGS/img src="\/FIGS/'
+
 $loader/problem_seeder.sh
 $loader/theory_seeder.sh
 $loader/graph_seeder.sh
