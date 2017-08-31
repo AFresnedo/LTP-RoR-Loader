@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 
-# NOTE: call from the curriculum folder you want to process
+curriculum=LIFETOMATH
+files=~/Documents/persProj/ma_files/LIFETOMATH
+ma=~/Documents/persProj/math_affirm
+backups=~/Documents/persProj/ma_files/backup_FIGS
+# TODO properly process figs so that you don't need 3 copies of everything
 
-# TODO first version will grab all ../FIG/* files and move them to
-# math_affirm/public/'controller'/FIGS/; second version will actually preserve directories
-# and not have 2 copies for everything
+# remove old pictures
+rm -r $ma/public/answers/FIGS/*
+rm -r $ma/public/problems/FIGS/*
+rm -r $ma/public/theories/FIGS/*
 
-find ./**/**/FIGS/* -type f -exec cp -r {} ~/Documents/persProj/math_affirm/public/problems/FIGS/ \;
-find ./**/**/FIGS/* -type f -exec cp -r {} ~/Documents/persProj/math_affirm/public/theories/FIGS/ \;
-find ./**/**/FIGS/* -type f -exec cp -r {} ~/Documents/persProj/math_affirm/public/FIGS/ \;
+# copy pictures from source
+find $files/**/**/FIGS/* -type f -exec cp -r {} $ma/public/answers/FIGS/ \;
+find $files/**/**/FIGS/* -type f -exec cp -r {} $ma/public/problems/FIGS/ \;
+find $files/**/**/FIGS/* -type f -exec cp -r {} $ma/public/theories/FIGS/ \;
