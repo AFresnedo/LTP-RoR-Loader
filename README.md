@@ -2,8 +2,11 @@
 
 ## Purpose
 
-Creates seed files for the specific book, from the Dropbox files, and adds book
-specific figures to the Public folder.
+Processes the Dropbox source file input for a book.
+    * Theories
+    * Problems
+    * Graphs
+    * Figures
 
 * Creates one gigantic seed file **db/seeds/all.rb** for ease of seeding
     * Includes any entries from db/seed.rb
@@ -15,6 +18,8 @@ specific figures to the Public folder.
     * db/seeds/graph_seed.rb
     * db/seeds/globalgraph_seed.rb
 
+* Copies all the figures and adds them to Public/FIGS
+
 ## Requirements
 
 * Linux
@@ -25,18 +30,17 @@ specific figures to the Public folder.
 
 Please refer to **seeder.sh** to configure all the necessary folder paths.
 
-### Variables, holding folder paths, to set
+### Paths to set (variables in seeder.sh)
 
-    * curriculum
-    * fillerPath
-    * files
-    * seeds
-    * loader
-    * ma
-    * pic_files
-    * dropbox
-        * Must manually adjust multiple paths if inner structure of Dropbox
-          changes
+* curriculum
+* fillerPath
+* files
+* seeds
+* loader
+* ma
+* pic_files
+* dropbox
+    * if Dropbox's inner structure changes, find/fix all affected paths
 
 ## Usage
 
