@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-pic_files=$fillerPath/ma_files/LIFETOMATH
+pic_files=$fillerPath/ma_files/$curriculum
 ma=$fillerPath/math_affirm
 
 # remove old pictures

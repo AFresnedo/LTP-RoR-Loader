@@ -10,6 +10,7 @@ files=$fillerPath/ma_files/$1
 seeds=$fillerPath/math_affirm/db/seeds
 # loader is the path of the folder containing all the input scripts
 loader=$fillerPath/ma_loader
+# export variables so that file-specific seeders can use them
 export curriculum
 export files
 export seeds
