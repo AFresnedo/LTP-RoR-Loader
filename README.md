@@ -44,3 +44,7 @@ Execute `$ *path*/seeder.sh *book*` from the linux command line
 
 * *book* represents the case-sensitive folder name for the book in Dropbox
     * Example: `$ ./seeder.sh LIFETOMATH` if seeding the LIFETOMATH book
+
+## Documentation
+
+Please refer to the [wiki](wiki/Home).
