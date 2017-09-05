@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-pic_files=~/Documents/persProj/ma_files/LIFETOMATH
-ma=~/Documents/persProj/math_affirm
+pic_files=$fillerPath/ma_files/LIFETOMATH
+ma=$fillerPath/math_affirm
 
 # remove old pictures
 rm -r $ma/public/FIGS/*
