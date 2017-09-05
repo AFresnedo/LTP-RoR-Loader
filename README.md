@@ -47,4 +47,4 @@ Execute `$ *path*/seeder.sh *book*` from the linux command line
 
 ## Documentation
 
-Please refer to the [wiki](/wiki/Home).
+Please refer to the [wiki](https://bitbucket.org/AFresnedo/math-affirm-loader/wiki/Home).
