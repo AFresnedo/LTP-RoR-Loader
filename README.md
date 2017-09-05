@@ -8,6 +8,7 @@ specific figures to the Public folder.
 * Creates one gigantic seed file **db/seeds/all.rb** for ease of seeding
     * Includes any entries from db/seed.rb
 
+
 * Creates file specific seeds
     * db/seeds/problem_seed.rb
     * db/seeds/theory_seed.rb
@@ -15,6 +16,7 @@ specific figures to the Public folder.
     * db/seeds/globalgraph_seed.rb
 
 ## Requirements
+
 * Linux
 * Access to Dropbox/Problems/**book**/
 * Python 2.7
@@ -24,6 +26,7 @@ specific figures to the Public folder.
 Please refer to **seeder.sh** to configure all the necessary folder paths.
 
 ### Variables, holding folder paths, to set
+
     * curriculum
     * fillerPath
     * files
@@ -37,7 +40,7 @@ Please refer to **seeder.sh** to configure all the necessary folder paths.
 
 ## Usage
 
-Execute '$ *path*/seeder.sh *book*' from the linux command line
+Execute `$ *path*/seeder.sh *book*` from the linux command line
 
 * *book* represents the case-sensitive folder name for the book in Dropbox
-    * Example: '$ ./seeder.sh LIFETOMATH' if seeding the LIFETOMATH book
+    * Example: `$ ./seeder.sh LIFETOMATH` if seeding the LIFETOMATH book
