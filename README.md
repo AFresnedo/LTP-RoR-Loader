@@ -3,10 +3,10 @@
 ## Purpose
 
 Processes the Dropbox source file input for a book.
-    * Theories
-    * Problems
-    * Graphs
-    * Figures
+* Theories
+* Problems
+* Graphs
+* Figures
 
 * Creates one gigantic seed file **db/seeds/all.rb** for ease of seeding
     * Includes any entries from db/seed.rb
