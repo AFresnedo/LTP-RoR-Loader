@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# NOTE: call from the curriculum folder you want to process, will overrite
-# previous curriculum seed file
-
 # step 1: create the seed files
 
 # first part creates (and outputs through pipe) a list of all the files in

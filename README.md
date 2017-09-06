@@ -1,24 +1,6 @@
 # Seeder for Math Affirm
 
-## Purpose
-
-* Processes the Dropbox source file input for a book.
-    * Theories
-    * Problems
-    * Graphs
-    * Figures
-
-* Creates one gigantic seed file **db/seeds/all.rb** for ease of seeding
-    * Includes any entries from db/seed.rb
-
-
-* Creates file specific seeds
-    * db/seeds/problem_seed.rb
-    * db/seeds/theory_seed.rb
-    * db/seeds/graph_seed.rb
-    * db/seeds/globalgraph_seed.rb
-
-* Copies all the figures and adds them to Public/FIGS
+Creates book-specific seed files for the Math Affirm Rails server.
 
 ## Requirements
 
@@ -28,7 +10,7 @@
 
 ## Configuration
 
-Please refer to **seeder.sh** to configure all the necessary folder paths.
+You must specify your own system's relative filepaths to run these scripts.
 
 ### Paths to set (variables in seeder.sh)
 
@@ -41,6 +23,10 @@ Please refer to **seeder.sh** to configure all the necessary folder paths.
 * pic_files
 * dropbox
     * if Dropbox's inner structure changes, find/fix all affected paths
+
+### Additional paths to set (variables in .py scripts)
+
+* In each python script, set appropriate fillerPathLength variable
 
 ## Usage
 

@@ -3,14 +3,13 @@ import helper_process_problem
 import re
 import sys
 
-# TODO fix syntax if needed, what is pluralized? Comment or Comments? does it
-# depend on the association type?
 # p = Problem.create!(filename: , text: )
 # p.answer(values: , module: )
 # s = p.solutions.create!(typ: , text: )
 # s.hints.create!(text: )
 # p.metadata(curriculum: , category: , context: , diff: , src: )
 
+# 6 "filler folders" currently in the path for each file in sys.stdin
 # ~, home, lancaster, Documents, persProj, ma_files
 fillerPathLength = 6
 # filename is problem.html file
