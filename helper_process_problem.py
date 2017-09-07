@@ -28,7 +28,8 @@ def processChunk(i, o, typ):
                 try:
                     typ = re.search(r'type=(.*):', line).group(1)
                 except AttributeError:
-                    typ = 'unknown'
+                    print 'typ is likely missing from solution'
+                    raise
                 processChunk(i, o, typ)
                 # finish hints/solutions
                 hintFound = False

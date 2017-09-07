@@ -112,7 +112,8 @@ for filename in sys.stdin:
                 try:
                     typ = re.search(r'type=(.*):', line).group(1)
                 except AttributeError:
-                    typ = 'unknown'
+                    print 'typ is likely missing from solution'
+                    raise
                 break
         assert ':bsol:' in line
         # process solution(s) and their hints
