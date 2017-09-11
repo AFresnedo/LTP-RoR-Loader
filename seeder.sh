@@ -3,6 +3,9 @@
 curriculum=$1
 # shared-path of all project-related files
 fillerPath=~/Documents/persProj
+# python scripts need to know how many folders to ignore in absolute paths
+# /, home, lancaster, Documents, persProj, ma_files
+pythonFillerPathLength=6
 # files is the path of the folder containing the book content
 # !!!DO NOT SET THE PATH OF THE DROPBOX FOLDER, it is your LOCAL copy!!!
 files=$fillerPath/ma_files/$1
@@ -24,6 +27,7 @@ export loader
 export fillerPath
 export pic_files
 export ma
+export pythonFillerPathLength
 
 # prepare local source
 rm -r $files

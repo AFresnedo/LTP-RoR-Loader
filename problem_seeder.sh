@@ -9,7 +9,7 @@
 # in them and that gets piped as output into python's stdin
 
 # third part: see python scripts for math-affirm-loader
-ls $files/**/**/*.html | perl -nle 'print if /(?<!theory)[0-9]+.html/' | python $loader/process_problem.py
+ls $files/**/**/*.html | perl -nle 'print if /(?<!theory)[0-9]+.html/' | python $loader/process_problem.py $pythonFillerPathLength
 
 # step 2: grab all the _seed files and concatenate them into a large seed file
 rm $seeds/problem_seed.rb

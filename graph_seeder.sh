@@ -3,7 +3,7 @@
 # NOTE: call from the curriculum folder you want to process, will overrite
 # previous graph seed file
 
-ls $files/**/**/*.txt | python $loader/process_graph.py
+ls $files/**/**/*.txt | python $loader/process_graph.py $pythonFillerPathLength
 
 rm $seeds/graph_seed.rb
 find $files -name '*.txt_seed' -exec cat {} >> $seeds/graph_seed.rb \;

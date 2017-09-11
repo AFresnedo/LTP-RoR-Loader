@@ -9,9 +9,7 @@ import sys
 # s.hints.create!(text: )
 # p.metadata(curriculum: , category: , context: , diff: , src: )
 
-# 6 "filler folders" currently in the path for each file in sys.stdin
-# ~, home, lancaster, Documents, persProj, ma_files
-fillerPathLength = 6
+fillerPathLength = argv[1]
 # filename is problem.html file
 for filename in sys.stdin:
     filename = filename.strip()

@@ -2,8 +2,7 @@ import json
 import re
 import sys
 
-# ~, home, lancaster, Documents, persProj, ma_files
-fillerPathLength = 6
+fillerPathLength = sys.argv[1]
 # filename is a theory.html file
 for filename in sys.stdin:
     filename = filename.strip()

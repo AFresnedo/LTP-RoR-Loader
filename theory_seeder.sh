@@ -12,10 +12,10 @@
 # in them and that gets piped as output into python's stdin
 
 # these are the theory files controlled by the local graphs
-ls $files/**/**/*.html | perl -nle 'print if /(?<=theory).*\.html/' | python $loader/process_theory.py
+ls $files/**/**/*.html | perl -nle 'print if /(?<=theory).*\.html/' | python $loader/process_theory.py $pythonFillerPathLength
 
 # these are the theory files controlled by the globalgraph
-ls $files/**/*.html | perl -nle 'print if /(?<=theory).*\.html/' | python $loader/process_theory.py
+ls $files/**/*.html | perl -nle 'print if /(?<=theory).*\.html/' | python $loader/process_theory.py $pythonFillerPathLength
 
 # step 2: grab all the _seed files and concatenate them into a large seed file
 rm $seeds/theory_seed.rb
