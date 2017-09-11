@@ -2,7 +2,7 @@ import json
 import re
 import sys
 
-fillerPathLength = sys.argv[1]
+fillerPathLength = int(sys.argv[1])
 # filename is a theory.html file
 for filename in sys.stdin:
     filename = filename.strip()

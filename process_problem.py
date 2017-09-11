@@ -9,7 +9,7 @@ import sys
 # s.hints.create!(text: )
 # p.metadata(curriculum: , category: , context: , diff: , src: )
 
-fillerPathLength = argv[1]
+fillerPathLength = int(sys.argv[1])
 # filename is problem.html file
 for filename in sys.stdin:
     filename = filename.strip()

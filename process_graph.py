@@ -1,7 +1,7 @@
 import sys
 import re
 
-fillerPathLength = sys.argv[1]
+fillerPathLength = int(sys.argv[1])
 # filename is a graph.txt file
 for filename in sys.stdin:
     filename = filename.strip()
