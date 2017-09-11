@@ -12,10 +12,17 @@ Creates book-specific seed files for the Math Affirm Rails server.
 
 You must specify your own system's relative filepaths to run these scripts.
 
+If needed, use chmod to specify .sh files as executable. 
+Short version:
+`$ chmod u+x *file*`
+Long version:
+`$ man chmod`
+
 ### Paths to set (variables in seeder.sh)
 
 * curriculum
 * fillerPath
+* pythonFillerPathLength
 * files
 * seeds
 * loader
@@ -23,10 +30,6 @@ You must specify your own system's relative filepaths to run these scripts.
 * pic_files
 * dropbox
     * if Dropbox's inner structure changes, find/fix all affected paths
-
-### Additional paths to set (variables in .py scripts)
-
-* In each python script, set appropriate fillerPathLength variable
 
 ## Usage
 
