@@ -3,6 +3,19 @@ import helper_process_problem
 import re
 import sys
 
+# NOTE script template format, in order of appearance
+# :bt: denotes problem title
+# :bprb: denotes problem statement, all html expected including <p>
+# multiple answer modules possible, following two comments
+# :bans: denotes answer; non-defaults typed by :type=mc:, :type=cb:
+# :bansinf: denotes answer
+# multiple solution/hint combos possible
+# :btype: denotes solution type
+# :bsol: denotes solution statement
+# :bhint: denotes hint, script needs to exclude <li> </li>
+# :bdiff: denotes difficulty integer, 1-7
+# :bsource: denotes source, a string
+
 # p = Problem.create!(filename: , text: )
 # p.answer(values: , module: )
 # s = p.solutions.create!(typ: , text: )
@@ -32,13 +45,6 @@ for filename in sys.stdin:
     # open source file
     i = open(filename)
     with i, o:
-        # Problem tuple
-        # move through the file, searching for start of Problem statement
-        for line in i:
-            # stop moving when beginning of problem text found
-            if ':bprb:' in line:
-                break
-        assert ':bprb:' in line
         # write Problem tuple
         # add comment seperation for seed file organization
         o.write('#PROBLEM TUPLE FOR '+filename+"\n")
@@ -47,7 +53,20 @@ for filename in sys.stdin:
                 +'\', curriculum: \''+curriculum
                 +'\', category: \''+category
                 +'\', context: \''+context
-                +'\', text: ')
+                +'\', title: ')
+        # move through the file, searching for start of title
+        for line in i:
+            # stop moving when beginning of problem title found
+            if ':bt:' in line:
+                break
+        assert ':bt:' in line
+        # move through the file, searching for start of Problem statement
+        for line in i:
+            # stop moving when beginning of problem text found
+            if ':bprb:' in line:
+                break
+        assert ':bprb:' in line
+        o.write('\', text: ')
         # fill in text attribute
         text = ''
         for line in i:
