@@ -1,6 +1,5 @@
 import json
-import answer_module.py
-import sol_hint.py
+import helper_process_problem
 import re
 import sys
 
@@ -141,7 +140,7 @@ for filename in sys.stdin:
                 break
         assert ':bsol:' in line
         # process solution(s) and their hints
-        sol_hint.processChunk(i, o, typ)
+        helper_process_problem.processChunk(i, o, typ)
 
         # Metadata tuple, TODO update for curriculum->category->...
         # note that category is already found because of processCHunk
