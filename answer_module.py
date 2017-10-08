@@ -1,202 +1,48 @@
-import json
-import helper_process_problem
-import re
-import sys
+def processModules(i, o):
+    # while modules remain
+    # determine type of module
+    # call appropraite methods
+    None
 
-# NOTE script template format, in order of appearance
-# :bt: denotes problem title
-# :bprb: denotes problem statement, all html expected including <p>
-# multiple answer modules possible, following two comments
-# :bans: denotes answer; non-defaults typed by :type=mc:, :type=cb:
-# :bansinf: denotes answer
-# multiple solution/hint combos possible
-# :btype: denotes solution type
-# :bsol: denotes solution statement
-# :bhint: denotes hint, script needs to exclude <li> </li>
-# :bdiff: denotes difficulty integer, 1-7
-# :bsource: denotes source, a string
+# process a single fill-in-the-boxes module
+def processDefaultModule(i, o):
+    # process answer
+    # process interface
+    None
 
-# p = Problem.create!(filename: , text: )
-# p.answer(values: , module: )
-# s = p.solutions.create!(typ: , text: )
-# s.hints.create!(text: )
-# p.metadata(curriculum: , category: , context: , diff: , src: )
+def processMultipleChoice(i, o):
+    # process answer list
+    # process question
+    None
 
-fillerPathLength = int(sys.argv[1])
-# filename is problem.html file
-for filename in sys.stdin:
-    filename = filename.strip()
-    print "Processing problem file: "+filename
-    # get directory path and filename
-    match = re.search('(.*)\/(.*\.html)', filename)
-    # save directory path for referencing problems
-    dirPath = match.group(1)
-    dirPieces = dirPath.split('/')
-    # get curriculum
-    curriculum = str.lower(dirPieces[fillerPathLength])
-    # get category
-    category = str.lower(dirPieces[fillerPathLength+1])
-    # get context
-    context = str.lower(dirPieces[fillerPathLength+2])
-    # get in-directory filename
-    localName = match.group(2)
-    # create new, or overrite, file to write seed code into
-    o = open(filename + '_seed', 'w')
-    # open source file
-    i = open(filename)
-    with i, o:
-        # write Problem tuple
-        # add comment seperation for seed file organization
-        o.write('#PROBLEM TUPLE FOR '+filename+"\n")
-        # write beginning of create command for the tuple going to Problem
-        o.write('p = Problem.create!(filename: \''+localName
-                +'\', curriculum: \''+curriculum
-                +'\', category: \''+category
-                +'\', context: \''+context
-                +'\', title: \'')
-        # move through the file, searching for start of title
-        for line in i:
-            # stop moving when beginning of problem title found
-            if ':bt:' in line:
-                break
-        assert ':bt:' in line
-        # write title
-        for line in i:
-            if ':et:' in line:
-                break
-            o.write(line.strip)
-        assert ':et:'
-        # move through the input, searching for start of Problem statement
-        for line in i:
-            # stop moving when beginning of problem text found
-            if ':bprb:' in line:
-                break
-        assert ':bprb:' in line
-        o.write('\', text: ')
-        # fill in text attribute
-        text = ''
-        for line in i:
-            # break when end of problem statement reached
-            if ':eprb:' in line:
-                # write string with escaped quotes, etc
-                o.write(json.dumps(text))
-                break
-            # the following is a placeholder for dealing with figures, if needed
-                #  if '<img src' in line:
-                #    do something
-            # append line to string
-            text += line
-        assert ':eprb:' in line
-        # finish writing text attribute for Problem
-        o.write(')\n')
+def processCheckboxes(i, o):
+    # process answer list
+    # process question
+    None
 
-        # TODO multiple modules
-        # Answer tuple
-        for line in i:
-            if ':bans:' in line:
-                break
-        # write beginning of create command for p.Answer tuple
-        o.write('#ANSWER TUPLE FOR PROBLEM P' + "\n")
-        # get problem tuple from database (doesn't seem to work otherwise)
-        o.write('p.answer = Answer.new(values: "')
-        # write answer value(s)
-        for line in i:
-            # end of problem statement reached
-            if ':eans:' in line:
-                break
-            # skip extra <p> and </p> tags
-            if 'p>' in line:
-                None
-            # write values as a string
-            else:
-                o.write(line.strip())
-        # end writing answer value(s)
-        assert ':eans:' in line
-        o.write('", interface: "')
-        # find interface text
-        for line in i:
-            if ':bansinf:' in line:
-                break
-        assert ':bansinf:' in line
-        # write interface
-        for line in i:
-            if ':eansinf:' in line:
-                break
-            if 'p>' not in line:
-                o.write(line.strip() + ' ')
-        o.write('")\n')
-
-        # Solution(s) tuple(s) and Hint(s) tuple(s)
-        # TODO update to curriculum instead of outdated category
-        typ = None
-        # go to first solution
-        for line in i:
-            if ':bsol:' in line:
-                try:
-                    typ = re.search(r'type=(.*):', line).group(1)
-                except AttributeError:
-                    print 'typ is likely missing from solution'
-                    raise
-                break
-        assert ':bsol:' in line
-        # process solution(s) and their hints
-        helper_process_problem.processChunk(i, o, typ)
-
-        # Metadata tuple, TODO update for curriculum->category->...
-        # note that category is already found because of processCHunk
-        # write beginning of metadata tuple for problem p
-        o.write('#METADATA TUPLE FOR PROBLEM P\n')
-        o.write('p.metadata = Metadata.new(curriculum: "')
-        # write curriculum NOTE mislabeled, in input, as cat
-        for line in i:
-            # end of curriculum reached
-            if ':ecat:' in line:
-                break
-            # write until end of curriculum
-            o.write(line.strip())
-        # write in category manually, not in input
-        o.write('", category: "'+category)
-        # next attribute
-        o.write('", context: "')
-        # goto context block
-        for line in i:
-            # found context
-            if ':bcontext:' in line:
-                break
-        # for all context
-        for line in i:
-            # end of context block
-            if ':econtext:' in line:
-                break
-            # write context block
-            o.write(line.strip())
-        # next attribute
-        o.write('", diff: ')
-        # goto difficulty block
-        for line in i:
-            # found difficulty
-            if ':bdif:' in line:
-                break
-        # for all difficulty
-        for line in i:
-            # end of difficulty block
-            if ':edif:' in line:
-                break
-            # write difficulty block
-            o.write(line.strip())
-        # next attribute
-        o.write(', source: "')
-        # goto source block
-        for line in i:
-            # found source
-            if ':bsource:' in line:
-                break
-        # for all source
-        for line in i:
-            # end of source block
-            if ':esource:' in line:
-                break
-            # write source block
-            o.write(line.strip())
-        # finish metadata tuple
-        o.write('")\n')
+    #  # Answer tuple
+    #  # write beginning of create command for p.Answer tuple
+    #  o.write('#ANSWER TUPLE FOR PROBLEM P' + "\n")
+    #  # get problem tuple from database (doesn't seem to work otherwise)
+    #  o.write('p.answer = Answer.new(values: "')
+    #  # write answer value(s)
+    #  for line in i:
+        #  # end of problem statement reached
+        #  if ':eans:' in line:
+            #  break
+        #  o.write(line.strip())
+    #  # end writing answer value(s)
+    #  assert ':eans:' in line
+    #  o.write('", interface: "')
+    #  # find interface text
+    #  for line in i:
+        #  if ':bansinf:' in line:
+            #  break
+    #  assert ':bansinf:' in line
+    #  # write interface
+    #  for line in i:
+        #  if ':eansinf:' in line:
+            #  break
+        #  if 'p>' not in line:
+            #  o.write(line.strip() + ' ')
+    #  o.write('")\n')
