@@ -1,20 +1,22 @@
-def processModules(i, o):
-    # while modules remain
-    # determine type of module
-    # call appropraite methods
+def processAnswers(i, o):
+    # while answer sets remain
+    # determine type of answer
+    # call appropriate functions
     None
 
-# process a single fill-in-the-boxes module
-def processDefaultModule(i, o):
+# process a single fill-in-the-boxes answer set
+def processDefault(i, o):
     # process answer
     # process interface
     None
 
+# process a single standard multiple choice
 def processMultipleChoice(i, o):
     # process answer list
     # process question
     None
 
+# process a single checkboxes version of multiple choice
 def processCheckboxes(i, o):
     # process answer list
     # process question
