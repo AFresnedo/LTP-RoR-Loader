@@ -91,42 +91,13 @@ for filename in sys.stdin:
         # finish writing text attribute for Problem
         o.write(')\n')
 
-        # TODO multiple modules
-        # Answer tuple
-        for line in i:
-            if ':bans:' in line:
-                break
-        # write beginning of create command for p.Answer tuple
-        o.write('#ANSWER TUPLE FOR PROBLEM P' + "\n")
-        # get problem tuple from database (doesn't seem to work otherwise)
-        o.write('p.answer = Answer.new(values: "')
-        # write answer value(s)
-        for line in i:
-            # end of problem statement reached
-            if ':eans:' in line:
-                break
-            # skip extra <p> and </p> tags
-            if 'p>' in line:
-                None
-            # write values as a string
-            else:
-                o.write(line.strip())
-        # end writing answer value(s)
-        assert ':eans:' in line
-        o.write('", interface: "')
-        # find interface text
-        for line in i:
-            if ':bansinf:' in line:
-                break
-        assert ':bansinf:' in line
-        # write interface
-        for line in i:
-            if ':eansinf:' in line:
-                break
-            if 'p>' not in line:
-                o.write(line.strip() + ' ')
-        o.write('")\n')
+        # process all following answer modules
+        # while not :bsol: send a chunk to processAnswers
 
+        # process answer module(s) and end when :btype: is found
+        answer_module.processAnswers(i, o)
+
+        # TODO update for new solution module (includes :btype:, etc)
         # Solution(s) tuple(s) and Hint(s) tuple(s)
         # TODO update to curriculum instead of outdated category
         typ = None

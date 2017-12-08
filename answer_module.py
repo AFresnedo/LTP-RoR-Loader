@@ -1,8 +1,21 @@
+# function called on first line of answer module and runs until first line of
+# solution
 def processAnswers(i, o):
-    # while answer sets remain
-    # determine type of answer
-    # call appropriate functions
-    None
+    # for all text in answer module(s)
+    for line in i:
+        # check for beginning of solution module and exit iff found
+        if ':btype:' in line:
+            break
+        # DETERMINE TYPE OF ANSWER
+        # find :bans: line
+        if ':bans:' in line:
+            # check for type, use default if missing
+            if 'mc' in line:
+                processMultipleChoice(i, o)
+            elif 'cb' in line:
+                processCheckboxes(i, o)
+            else:
+                processDefault(i, o)
 
 # process a single fill-in-the-boxes answer set
 def processDefault(i, o):
