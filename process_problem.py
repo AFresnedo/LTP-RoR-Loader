@@ -50,11 +50,11 @@ for filename in sys.stdin:
         # add comment seperation for seed file organization
         o.write('#PROBLEM TUPLE FOR '+filename+"\n")
         # write beginning of create command for the tuple going to Problem
-        o.write('p = Problem.create!(filename: \''+localName
-                +'\', curriculum: \''+curriculum
-                +'\', category: \''+category
-                +'\', context: \''+context
-                +'\', title: \'')
+        o.write('p = Problem.create!(filename: "'+localName
+                +'", curriculum: "'+curriculum
+                +'", category: "'+category
+                +'", context: "'+context
+                +'", title: "')
         # move through the file, searching for start of title
         for line in i:
             # stop moving when beginning of problem title found
@@ -73,7 +73,7 @@ for filename in sys.stdin:
             if ':bprb:' in line:
                 break
         assert ':bprb:' in line
-        o.write('\', text: ')
+        o.write('", text: ')
         # fill in text attribute
         text = ''
         for line in i:
