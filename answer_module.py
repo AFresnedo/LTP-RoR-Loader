@@ -31,12 +31,12 @@ def processDefault(i, o):
     for line in i:
         if ':bansinf:' in line:
             break
-        assert ':bansinf:' in line
-        for line in i:
-            if ':eansinf:' in line:
-                break
-            o.write(line.strip() + ' ')
-        o.write('")\n')
+    assert ':bansinf:' in line
+    for line in i:
+        if ':eansinf:' in line:
+            break
+        o.write(line.strip() + ' ')
+    o.write('")\n')
 
 # process a single standard multiple choice
 # last line read is :bans: type=mc

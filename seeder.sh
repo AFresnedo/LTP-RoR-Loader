@@ -17,8 +17,6 @@ loader=$fillerPath/ma_loader
 ma=$fillerPath/math_affirm
 # for picture seeder
 pic_files=$fillerPath/ma_files/$1
-# Dropbox folder path
-dropbox=~/Dropbox
 # export variables so that file-specific seeders can use them
 export curriculum
 export files
@@ -28,11 +26,6 @@ export fillerPath
 export pic_files
 export ma
 export pythonFillerPathLength
-
-# prepare local source
-rm -r $files
-mkdir $files
-cp -r $dropbox/MathAffirm/Problems/$1/* $files
 
 # TODO re-evaluate "all" seed, right now it re-seeds users and $1 book
 # setup for gigantic seed file

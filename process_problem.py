@@ -1,6 +1,6 @@
 import json
-import answer_module.py
-import sol_hint.py
+import answer_module
+import sol_hint
 import re
 import sys
 
@@ -65,7 +65,7 @@ for filename in sys.stdin:
         for line in i:
             if ':et:' in line:
                 break
-            o.write(line.strip)
+            o.write(line.strip())
         assert ':et:'
         # move through the input, searching for start of Problem statement
         for line in i:
@@ -97,18 +97,20 @@ for filename in sys.stdin:
         # process answer module(s) and end when :btype: is found
         answer_module.processAnswers(i, o)
 
-        # TODO update for new solution module (includes :btype:, etc)
+        # get type and continue
+        typ = None
+        for line in i:
+            if ':etype' in line:
+                break
+            # get the type
+            typ = line.strip()
+        assert 'etype:' in line
+
         # Solution(s) tuple(s) and Hint(s) tuple(s)
         # TODO update to curriculum instead of outdated category
-        typ = None
         # go to first solution
         for line in i:
             if ':bsol:' in line:
-                try:
-                    typ = re.search(r'type=(.*):', line).group(1)
-                except AttributeError:
-                    print 'typ is likely missing from solution'
-                    raise
                 break
         assert ':bsol:' in line
         # process solution(s) and their hints

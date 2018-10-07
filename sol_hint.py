@@ -23,18 +23,29 @@ def processChunk(i, o, typ):
             if ':bhint:' in line:
                 break
             # no hints remaining for this solution
-            if ':bsol:' in line:
-                # other solutions remain, recursive call
-                try:
-                    typ = re.search(r'type=(.*):', line).group(1)
-                except AttributeError:
-                    print 'typ is likely missing from solution'
-                    raise
+            if ':btype:' in line:
+                # get type and continue
+                typ = None
+                for line in i:
+                    if ':etype' in line:
+                        break
+                    # get the type
+                    typ = line.strip()
+                assert 'etype:' in line
+
+                # Solution(s) tuple(s) and Hint(s) tuple(s)
+                # TODO update to curriculum instead of outdated category
+                # go to first solution
+                for line in i:
+                    if ':bsol:' in line:
+                        break
+                assert ':bsol:' in line
+                # process solution(s) and their hints
                 processChunk(i, o, typ)
                 # finish hints/solutions
                 hintFound = False
                 break
-            if ':bcat:' in line:
+            if ':bdiff:' in line:
                 # end of hints/solutions in problem
                 hintFound = False
                 break
