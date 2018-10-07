@@ -39,8 +39,15 @@ def processDefault(i, o):
         o.write('")\n')
 
 # process a single standard multiple choice
+# last line read is :bans: type=mc
 def processMultipleChoice(i, o):
     # process answer list
+    o.write('#MC ANSWER CHOICES FOR PROBLEM P\n')
+    o.write('p.answer = Answer.new(values: "')
+    # skip <ul>
+    # skip comments
+    # for each li, check if it's <b> or <em> and insert it
+
     # process question
     None
 
