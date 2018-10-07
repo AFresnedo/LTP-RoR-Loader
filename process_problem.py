@@ -120,46 +120,16 @@ for filename in sys.stdin:
         # note that category is already found because of processCHunk
         # write beginning of metadata tuple for problem p
         o.write('#METADATA TUPLE FOR PROBLEM P\n')
-        o.write('p.metadata = Metadata.new(curriculum: "')
-        # write curriculum NOTE mislabeled, in input, as cat
+        o.write('p.metadata = Metadata.new(diff: "')
+        # sol_hint ends at start of diff block
         for line in i:
-            # end of curriculum reached
-            if ':ecat:' in line:
-                break
-            # write until end of curriculum
-            o.write(line.strip())
-        # write in category manually, not in input
-        o.write('", category: "'+category)
-        # next attribute
-        o.write('", context: "')
-        # goto context block
-        for line in i:
-            # found context
-            if ':bcontext:' in line:
-                break
-        # for all context
-        for line in i:
-            # end of context block
-            if ':econtext:' in line:
-                break
-            # write context block
-            o.write(line.strip())
-        # next attribute
-        o.write('", diff: ')
-        # goto difficulty block
-        for line in i:
-            # found difficulty
-            if ':bdif:' in line:
-                break
-        # for all difficulty
-        for line in i:
-            # end of difficulty block
-            if ':edif:' in line:
+            # break loop if end of difficulty block
+            if ':ediff:' in line:
                 break
             # write difficulty block
             o.write(line.strip())
         # next attribute
-        o.write(', source: "')
+        o.write('", source: "')
         # goto source block
         for line in i:
             # found source
