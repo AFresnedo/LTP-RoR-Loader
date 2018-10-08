@@ -5,7 +5,7 @@ curriculum=$1
 fillerPath=~/Documents/GA/projects/oc
 # python scripts need to know how many folders to ignore in absolute paths
 # /, home, andres, Documents, GA, projects, oc
-pythonFillerPathLength=7
+pythonFillerPathLength=8
 # files is the path of the folder containing the book content
 # !!!DO NOT SET THE PATH OF THE DROPBOX FOLDER, it is your LOCAL copy!!!
 files=$fillerPath/input/$1
