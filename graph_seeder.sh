@@ -6,5 +6,5 @@
 ls $files/**/**/*.txt | python $loader/process_graph.py $pythonFillerPathLength
 
 rm $seeds/graph_seed.rb
-find $files -name '*.txt_seed' -exec cat {} >> $seeds/graph_seed.rb \;
-find $files -name '*.txt_seed' -exec cat {} >> $seeds/all.rb \;
+find $files -name '*.txt_local_graph_seed' -exec cat {} >> $seeds/graph_seed.rb \;
+find $files -name '*.txt_local_graph_seed' -exec cat {} >> $seeds/all.rb \;
