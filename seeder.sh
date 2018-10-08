@@ -2,21 +2,21 @@
 # case-sensitive folder name of the book to seed (from Dropbox)
 curriculum=$1
 # shared-path of all project-related files
-fillerPath=~/Documents/persProj
+fillerPath=~/Documents/GA/projects/oc
 # python scripts need to know how many folders to ignore in absolute paths
-# /, home, lancaster, Documents, persProj, ma_files
-pythonFillerPathLength=6
+# /, home, andres, Documents, GA, projects, oc
+pythonFillerPathLength=7
 # files is the path of the folder containing the book content
 # !!!DO NOT SET THE PATH OF THE DROPBOX FOLDER, it is your LOCAL copy!!!
-files=$fillerPath/ma_files/$1
+files=$fillerPath/input/$1
 # seeds is the path of the seed folder for the rails application
-seeds=$fillerPath/math_affirm/db/seeds
+seeds=$fillerPath/Online-Curriculum/db/seeds
 # loader is the path of the folder containing all the input scripts
-loader=$fillerPath/ma_loader
+loader=$fillerPath/OC-Loader
 # path to the rails application
-ma=$fillerPath/math_affirm
+ma=$fillerPath/Online-Curriculum
 # for picture seeder
-pic_files=$fillerPath/ma_files/$1
+pic_files=$fillerPath/input/$1
 # export variables so that file-specific seeders can use them
 export curriculum
 export files
