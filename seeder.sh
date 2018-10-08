@@ -30,6 +30,7 @@ export pythonFillerPathLength
 # TODO re-evaluate "all" seed, right now it re-seeds users and $1 book
 # setup for gigantic seed file
 rm $seeds/all.rb
+# this seeds the default seeds file in db, rest of seed content done in scripts
 find $ma/db -name 'seeds.rb' -exec cat {} >> $seeds/all.rb \;
 
 # fix figure HREFs

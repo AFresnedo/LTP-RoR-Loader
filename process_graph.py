@@ -16,7 +16,7 @@ for filename in sys.stdin:
     category = str.lower(dirPieces[fillerPathLength+1])
     context = str.lower(dirPieces[fillerPathLength+2])
         # create seed_file for file
-    o = open(filename + '_seed', 'w')
+    o = open(filename + '_local_graph_seed', 'w')
     # open source file
     i = open(filename)
     with i, o:

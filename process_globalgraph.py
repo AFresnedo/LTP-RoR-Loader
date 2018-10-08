@@ -2,7 +2,7 @@ import sys
 import re
 
 filename = sys.argv[1]
-print 'Processing file: '+filename
+print 'Processing globalgraph file: '+filename
 
 o = open(filename + '_seed', 'w')
 i = open(filename)
@@ -10,6 +10,8 @@ i = open(filename)
 # TODO the way ordering works now is really flimsy, redo it later, because
 # it requires a theoryfile for every category
 with i, o:
+    # write section heading
+    o.write('#GLOBALGRAPH TUPLES FROM '+filename+"\n")
     # get curriculum attribute, same for every line
     curriculum = sys.argv[2]
     curriculum = str.lower(curriculum)
